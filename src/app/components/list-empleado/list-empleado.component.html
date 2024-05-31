@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-lg-6">
+   <h2>Listado de Empleados</h2>
+  </div>
+  <div class="col lg-6" style="text-align:right">
+    <button mat-raised-button color="warn" routerLink="/add">Agregar
+    </button>
+  </div>
+</div>
+
+<mat-form-field>
+  <mat-label>Filtro</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Empleado" #input autocomplete="off">
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+  <!-- Nombre Completo Column -->
+  <ng-container matColumnDef="nombreCompleto">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Completo </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombreCompleto}} </td>
+  </ng-container>
+
+  <!-- Correo Column -->
+  <ng-container matColumnDef="correo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+    <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+  </ng-container>
+
+  <!-- Estado Civil Column -->
+  <ng-container matColumnDef="estadoCivil">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado Civil </th>
+    <td mat-cell *matCellDef="let element"> {{element.estadoCivil}} </td>
+  </ng-container>
+
+  <!-- Fecha Ingreso Column -->
+  <ng-container matColumnDef="fechaIngreso">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Ingreso </th>
+    <td mat-cell *matCellDef="let element"> {{element.fechaIngreso | date :'dd/MM/yyyy'}} </td>
+  </ng-container>
+
+  <!-- Sexo Column -->
+  <ng-container matColumnDef="sexo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sexo </th>
+    <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+  </ng-container>
+
+  <!-- Teléfono Column -->
+  <ng-container matColumnDef="telefono">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+    <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+  </ng-container>
+
+  <!-- Acciones Column -->
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      <!-- Aquí puedes poner tus botones de acción -->
+      <a href=""  routerLink="edit/{{ i }}" class="pointer" style="color:#1878b0">
+        <mat-icon>edit</mat-icon>
+      </a>
+      <a  (click)=eliminarEmpleado(i) style="color:#e15639" class="pointer">
+        <mat-icon>delete</mat-icon>
+      </a>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>
